@@ -2,7 +2,7 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\margl1440\margr1440\vieww11740\viewh18900\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 \\documentclass\{article\}\
@@ -167,16 +167,16 @@ University of Alberta\}\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55\
  %\\thispagestyle\{empty\} \
 \\begin\{abstract\}\
-In this paper we present Approximation Schemes for Capacitated Vehicle Routing Problem (CVRP) on several classes of graphs.\
+In this paper, we present Approximation Schemes for Capacitated Vehicle Routing Problem (CVRP) on several classes of graphs.\
 In CVRP, introduced by Dantzig and Ramser in 1959 \\cite\{Dantzig\}, we are given a graph $G=(V,E)$ with metric edges costs, a depot $r\\in V$, and a vehicle of bounded capacity $Q$. The goal is\
-to find minimum cost collection of tours for the vehicle that return to the depot, each visiting at most $Q$ nodes, such that they \
-cover all the nodes. This generalizes classic TSP and has been studied extensively. In the more general setting each node $v$ has\
+to find a minimum cost collection of tours for the vehicle that returns to the depot, each visiting at most $Q$ nodes, such that they \
+cover all the nodes. This generalizes classic TSP and has been studied extensively. In the more general setting, each node $v$ has\
 a demand $d_v$ and the total demand of each tour must be no more than $Q$. Either the demand of each node must be served by one tour\
-(unsplittable) or can be served by multiple tour (splittable). The best known approximation algorithm for general graphs has \
+(unsplittable) or can be served by multiple tours (splittable). The best known approximation algorithm for general graphs has \
 ratio $\\alpha+2(1-\\epsilon)$ (for the unsplittable) and $\\alpha+1-\\epsilon$ (for the splittable) for some fixed $\\epsilon>\\frac\{1\}\{3000\}$, where $\\alpha$ is the best approximation for TSP.\
 Even for the case of trees, the best approximation ratio is $4/3$ \\cite\{Becker18\} and it has been an open question if there is an approximation scheme for this simple class of graphs. Das and Mathieu \\cite\{Das-Mathieu\} presented an approximation\
 scheme with time $n^\{\\log^\{O(1/\\epsilon)\}n\}$ for Euclidean plane $\\RR^2$. No other approximation scheme is known for any other class of metrics\
-(without further restrictions on $Q$). In this paper we make significant progress on this classic problem by presenting Quasi-Polynomial Time Approximation Schemes (QPTAS) for graphs of bounded treewidth, graphs of bounded highway dimensions, and graphs of bounded doubling dimensions. For comparison, our result implies an approximation scheme for Euclidean plane with run time $n^\{O(\\log^\{6\}n/\\eps^\{5\})\}$. \
+(without further restrictions on $Q$). In this paper, we make significant progress on this classic problem by presenting Quasi-Polynomial Time Approximation Schemes (QPTAS) for graphs of bounded treewidth, graphs of bounded highway dimensions, and graphs of bounded doubling dimensions. For comparison, our result implies an approximation scheme for Euclidean plane with run time $n^\{O(\\log^\{6\}n/\\eps^\{5\})\}$. \
 \\end\{abstract\}\
 \
 %\\newpage\
@@ -185,21 +185,21 @@ scheme with time $n^\{\\log^\{O(1/\\epsilon)\}n\}$ for Euclidean plane $\\RR^2$.
 \\section\{Introduction\}\
 Vehicle routing problems (VRP) describe a class of problems where the objective is to find cost efficient delivery routes for delivering items from depots to clients using vehicles having limited capacity. These problems have numerous applications in real world settings. The Capacitated Vehicle Routing Problem (CVRP) was introduced by Dantzig and Ramser in 1959 \\cite\{Dantzig\}. In CVRP, we are given as input a graph $G=(V,E)$ with\
 metric edge weights (also referred to as costs) $w(e)\\in\\mathbb\{Z\}^\{\\ge 0\}$,\
-a depot $r\\in V$, along with a vehicle of capacity $Q>0$, and wish to compute a minimum weight/cost collection of tours, each starting from the depot and visiting at most $Q$ customers, whose union covers all the customers. In the more general setting each node $v$ has a demand $d(v)\\in \\mathbb\{Z\}^\{\\ge 1\}$ and the goal is to find a set of tours of minimum total cost each of which includes $r$ such that the union of the tours covers the demand at every client and every tour covers at most $Q$ demand. \
+a depot $r\\in V$, along with a vehicle of capacity $Q>0$, and wish to compute a minimum weight/cost collection of tours, each starting from the depot and visiting at most $Q$ customers, whose union covers all the customers. In the more general setting each node $v$ has a demand $d(v)\\in \\mathbb\{Z\}^\{\\ge 1\}$ and the goal is to find a set of tours of the minimum total cost each of which includes $r$ such that the union of the tours covers the demand at every client and every tour covers at most $Q$ demand. \
 \
 There are three common versions of CVRP: \\emph\{unit\}, \\emph\{splittable\}, and \\emph\{unsplittable\}. In the splittable variant, the demand of a node can be delivered using multiple tours, but in the unsplittable variant, the entire demand of a client must be delivered by a single tour. The unit demand case is a special case of the unsplittable case where every node has unit demand and the demand of a client must be delivered by a single tour. CVRP has also been referred to as the $k$-tours problem \\cite\{Arora-Euclidean-PTAS, stoc/AsanoKTT97\}.\
  All three variants admit constant factor approximation algorithm in polynomial-time \\cite\{Haimovich-Kan\}. Haimovich et al. \\cite\{Haimovich-Kan\} showed that a heuristic\
- called iterative partitioning (which starts from a TSP tour and breaking the tour into capacity respecting tours by making a trip back and  forth to the depot) implies an $(\\alpha+1(1-1/Q))$-approximation\
+ called iterative partitioning (which starts from a TSP tour and break the tour into capacity respecting tours by making a trip back and  forth to the depot) implies an $(\\alpha+1(1-1/Q))$-approximation\
  for the unit demand case, with $\\alpha$ being the approximation ratio of Traveling Salesman Problem (TSP). \
  A similar approach implies a\
 $2 + (1 - 2/Q)\\alpha)$-approximation for the unsplittable variant \\cite\{ALTINKEMER1987149\}. Very recently, Blauth et al. \\cite\{Vygen\} improved these approximations by showing that there is an $\\eps > 0$ such that there is an $(\\alpha + 2 \\cdot (1 - \\eps))$-approximation algorithm for unsplittable CVRP and a $(\\alpha + 1 - \\eps)$-approximation algorithm for unit demand CVRP and splittable CVRP. For $\\alpha = 3/2$, they showed $\\eps > 1/3000$. \
- All three variants are APX-hard in general metric spaces \\cite\{Papadimitrio-Yannakakis\}, so a natural research focus has been on structured metric spaces, i.e. special graph classes. Even on on trees (and in particular on stars) CVRP remains NP-hard \\cite\{Labbe-Mercure\}, and there exists constant-factor approximations (currently being $4/3$ \\cite\{Becker18\}), better than those for general metrics, however the following question has remained open:\\\\\
+ All three variants are APX-hard in general metric spaces \\cite\{Papadimitrio-Yannakakis\}, so a natural research focus has been on structured metric spaces, i.e. special graph classes. Even on trees (and in particular on stars) CVRP remains NP-hard \\cite\{Labbe-Mercure\}, and there exist constant-factor approximations (currently being $4/3$ \\cite\{Becker18\}), better than those for general metrics, however, the following question has remained open:\\\\\
 \\textbf\{Question.\} Is it possible to design an approximation scheme for CVRP on trees or more generally graphs of bounded treewidth? \
 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
 %\\subsection\{Main Contributions\}\
 \
-We answer the above question affirmatively. For ease of exposition we start by prove the following first:\
+We answer the above question affirmatively. For ease of exposition we start by proving the following first:\
 \\begin\{theorem\}\\label\{thm:tree\}\
 For any $\\eps > 0$, there is an algorithm that, for any instance of the unit demand CVRP on trees outputs a $(1 + \\eps)$-approximate solution in time $n^\{O(\\log^4 n/\\eps^3)\}$.\
 For any instance of the splittable CVRP on trees when $Q = n^\{O(\\log^c n)\}$ the algorithm  \
@@ -227,7 +227,7 @@ the algorithm outputs a $(1 + \\eps)$-approximate solution in time $n^\{O(k^2\\l
 %Let $\\eps > 0$. There is an algorithm that, for any instance of the splittable CVRP on graphs of treewidth $k$ and when $Q %= n^\{O(\\log^c n)\}$, outputs a $(1 + \\eps)$-approximate solution in time $n^\{O(k^2\\log^\{2c + 3\} n/\\eps^2)\}$.\
 %\\end\{corollary\}\
 \
-As a consequence of this and using earlier results of embedding of graphs of bounded doubling dimensions or bounded highway dimensions into graphs of low treewidth we obtain approximation schemes for CVRP on those graph classes.\
+As a consequence of this and using earlier results of embedding graphs of bounded doubling dimensions or bounded highway dimensions into graphs of low treewidth we obtain approximation schemes for CVRP on those graph classes.\
 \
 \\begin\{theorem\}\\label\{thm:DD\}\
 For any $\\eps > 0$ and fixed $D > 0$, there is a an algorithm that, given an instance of the splittable CVRP with \
@@ -250,24 +250,24 @@ For the case of trees, Labb\'e9 et al. \\cite\{Labbe-Mercure\} showed splittable
 \
 Das and Mathieu \\cite\{Das-Mathieu\} gave a quasi-polynomial-time approximation scheme (QPTAS) for CVRP in the Euclidean plane ($\\mathbb\{R\}^2$). A PTAS for when $Q$ is $O(\\log n/\\log \\log n)$ or $Q$ is $\\Omega(n)$ was shown by Asano et al. \\cite\{stoc/AsanoKTT97\}. A PTAS for Euclidean plane $\\mathbb\{R\}^2$ for all moderately large values of $Q \\le 2^\{\\log^\\delta n\}$, where $\\delta = \\delta(\\eps)$, was shown by Adamaszek et al \\cite\{AdamaszekCL09\}, building on the work of Das and Mathieu \\cite\{Das-Mathieu\}, and using it as a subroutine. For high dimensional Euclidean spaces $\\mathbb\{R\}^d$, Khachay et al. \\cite\{Khachay-PTAS\} showed a PTAS when $Q$ is $O(\\log^\{1/d\}n)$. For graphs of bounded doubling dimension, Khachay et al. \\cite\{Khachay-moderatenumer\} gave a QPTAS when the number of tours is $\\polylog(n)$ and Khachay et al.  \\cite\{Khachay-moderatecapacity\} gave a QPTAS when $Q$ is $\\polylog(n)$.\
 \
-The following results are all for when $Q$ is a fixed. CVRP is APX-hard in general metrics and is polynomial-time solvable on trees. There exists a PTAS for CVRP in the Euclidean plane ($\\mathbb\{R\}^2$) (again for when $Q$ is fixed) as shown by Khachay et al. \\cite\{Khachay-PTAS\}. A PTAS for planar graphs was shown by Becker et al. \\cite\{PlanarPTAS-Klein\} and  a QPTAS for planar and bounded-genus graphs was shown by Becker et al. \\cite\{QPTAS-Planar-boundedgenus\}.  A PTAS for graphs of bounded highway dimension and an exact algorithm for graphs with treewidth with running time $O(n^\{\\text\{tw\}Q\})$ was shown by Becker et al \\cite\{Becker-boundedhighway\}.  Cohen-Addad et al. \\cite\{Klein-minorfree\} showed an efficient PTAS for graphs of bounded-treewidth, an efficient PTAS for bounded highway dimension, an efficient PTAS for bounded genus metrics and a QPTAS for minor-free metrics. Again, note that these results are\
+The following results are all for when $Q$ is a fixed. CVRP is APX-hard in general metrics and is polynomial-time solvable on trees. There exists a PTAS for CVRP in the Euclidean plane ($\\mathbb\{R\}^2$) (again for when $Q$ is fixed) as shown by Khachay et al. \\cite\{Khachay-PTAS\}. A PTAS for planar graphs was shown by Becker et al. \\cite\{PlanarPTAS-Klein\} and a QPTAS for planar and bounded-genus graphs was shown by Becker et al. \\cite\{QPTAS-Planar-boundedgenus\}.  A PTAS for graphs of bounded highway dimension and an exact algorithm for graphs with treewidth with running time $O(n^\{\\text\{tw\}Q\})$ was shown by Becker et al \\cite\{Becker-boundedhighway\}.  Cohen-Addad et al. \\cite\{Klein-minorfree\} showed an efficient PTAS for graphs of bounded-treewidth, an efficient PTAS for bounded highway dimension, an efficient PTAS for bounded genus metrics and a QPTAS for minor-free metrics. Again, note that these results are\
 all under the assumption that $Q$ is fixed.\
 \
 So aside from the QPTAS of \\cite\{Das-Mathieu\} for $\\mathbb\{R\}^2$ and subsequent slight generalization of \\cite\{AdamaszekCL09\} no approximation scheme is known for CVRP on any non-trivial metrics for arbitrary values of $Q$ (even for trees). Standard ways of\
-extending a dynamic programs for Euclidean metrics to bounded doubling metrics do not seem to work to extend the results of\
+extending a dynamic program for Euclidean metrics to bounded doubling metrics do not seem to work to extend the results of\
 \\cite\{Das-Mathieu\} to doubling metrics in quasi-polynomial time.\
 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
 \\subsection\{Overview of our technique\}\
 We start by presenting a QPTAS for CVRP on trees and then extend the technique to graphs of bounded\
 treewidth.\
-Our main technique to design approximation scheme for CVRP is to show the existence of a near optimum solution where the sizes of the partial tours going past any node of the tree can be partitioned into\
+Our main technique to design an approximation scheme for CVRP is to show the existence of a near optimum solution where the sizes of the partial tours going past any node of the tree can be partitioned into\
 only poly-logarithmic many classes. This will allow one to use dynamic programming to find a low cost solution. A simple rounding of tour sizes to some threshold values (e.g. powers of $(1+\\eps)$) only works (with some care) to achieve a\
-bi-criteria approximation as any under estimation of tour sizes may result in tours that are violating the capacities. To achieve a true approximation (without capacity violation) we show how we can break the tours of an optimum solution into "top" and "bottom" parts (at any node $v$) and then swap the bottom parts of tours with the bottom parts of other tours which are smaller, and then "round them up" to the nearest value from a set of poly-logarithmic threshold values. This swapping creates enough room to do the "round up" without violating the capacities. However, this will cause a small fraction of the vertices to become "not covered", we call them  orphant nodes. We will show how we can randomly choose some tours of the optimum and add them back to the solution (at a small extra cost) and use these extra tours (after some modifications) to cover the orphant nodes. There are many details along the way. For instance, we treat the demand of each node as a token to be picked up by a tour. To ensure partial\
+bi-criteria approximation as any underestimation of tour sizes may result in tours that are violating the capacities. To achieve a true approximation (without capacity violation) we show how we can break the tours of an optimum solution into "top" and "bottom" parts (at any node $v$) and then swap the bottom parts of tours with the bottom parts of other tours which are smaller, and then "round them up" to the nearest value from a set of poly-logarithmic threshold values. This swapping creates enough room to do the "round up" without violating the capacities. However, this will cause a small fraction of the vertices to become "not covered", we call them  orphant nodes. We will show how we can randomly choose some tours of the optimum and add them back to the solution (at a small extra cost) and use these extra tours (after some modifications) to cover the orphant nodes. There are many details along the way. For instance, we treat the demand of each node as a token to be picked up by a tour. To ensure partial\
 tour sizes are always from a small (i.e. poly-logarithmic) size set, we add extra tokens over the nodes. \
 Also, for our QPTAS to work we need to bound the height of the tree. We show how we can reduce the height of the tree to poly-logarithmic at a small loss using a height reduction lemma that might prove useful for other vehicle routing problems.\
 \
-The technique of QPTAS for trees then can be extended to graphs of bounded treewidth and also graphs of bounded doubling dimension; prove the existence of a similar near optimum solution and find one using dynamic program. Or one can use the known results for embedding of graphs of bounded doubling dimension into graphs of small treewidth.\
+The technique of QPTAS for trees then can be extended to graphs of bounded treewidth and also graphs of bounded doubling dimension; prove the existence of a similar near optimum solution and find one using dynamic program. Or one can use the known results the embedding of graphs of bounded doubling dimension into graphs of small treewidth.\
 \
 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
@@ -279,27 +279,27 @@ We use $\\OPT(G)$ or simply $\\OPT$ to refer to an optimum solution of $G$, and 
 so $\\opt=\\sum_e w(e)\\cdot f(e)$.\
 \
 % \\subsection\{Total number of tokens and tours\}\
- First we show the demand of each node is bounded by a function of $Q$. And then,\
-using standard scaling and rounding and at a small loss, we show we can assume the edge weights are polynomially bounded (in $n$).   Given an instance for splittable CVRP with $n$ nodes and capacity $Q$, it is possible that the demand $d(v) > Q$ for some node $v$. From the work of Adamaszek et al \\cite\{AdamaszekCL09\}, we will show how we can assume that the demand at each node $v$ satisfies $1 \\le d(v) < nQ$. Adamaszek et al \\cite\{AdamaszekCL09\} defined a \\emph\{trivial\} tour to be a tour which picks up tokens from a single node in $T$ and a tour is \\emph\{non-trivial\} if the tour picks up tokens from at least two nodes in $T$. They defined a \\emph\{cycle\} to be a set of tours $t_1,\\ldots, t_m (m \\ge 2)$ and a set of nodes $\\ell_1, \\ell_2, \\ldots, \\ell_m, \\ell_\{m+1\} = \\ell_1$ such that each tour $t_i$ covers locations $\\ell_i$ and $\\ell_\{i+1\}$ and the origin is not considered as a node in $\\ell_1, \\ldots, \\ell_m$.  They showed in Lemma 1 of \\cite\{AdamaszekCL09\} that there is an optimal solution in which there are no cycles. Since there are no 2-cycles, there are no two tours which cover the same pair of nodes. So there is an optimal solution such that there are at most $n$ non-trivial tours (as argued in \\cite\{AdamaszekCL09\}). So putting aside trivial tours (each picking up $Q$ tokens at a node), we can assume we have a total of at most $nQ$ tokens and in particular each node has at most this many tokens. Without loss of generality, we assume we have removed all trivial tours and so there is a total of at most $nQ$ demands.\
+ First, we show the demand of each node is bounded by a function of $Q$. And then,\
+using standard scaling and rounding and at a small loss, we show we can assume the edge weights are polynomially bounded (in $n$).   Given an instance for splittable CVRP with $n$ nodes and capacity $Q$, it is possible that the demand $d(v) > Q$ for some node $v$. From the work of Adamaszek et al \\cite\{AdamaszekCL09\}, we will show how we can assume that the demand at each node $v$ satisfies $1 \\le d(v) < nQ$. Adamaszek et al \\cite\{AdamaszekCL09\} defined a \\emph\{trivial\} tour to be a tour that picks up tokens from a single node in $T$ and a tour is \\emph\{non-trivial\} if the tour picks up tokens from at least two nodes in $T$. They defined a \\emph\{cycle\} to be a set of tours $t_1,\\ldots, t_m (m \\ge 2)$ and a set of nodes $\\ell_1, \\ell_2, \\ldots, \\ell_m, \\ell_\{m+1\} = \\ell_1$ such that each tour $t_i$ covers locations $\\ell_i$ and $\\ell_\{i+1\}$ and the origin is not considered as a node in $\\ell_1, \\ldots, \\ell_m$.  They showed in Lemma 1 of \\cite\{AdamaszekCL09\} that there is an optimal solution in which there are no cycles. Since there are no 2-cycles, there are no two tours that cover the same pair of nodes. So there is an optimal solution such that there are at most $n$ non-trivial tours (as argued in \\cite\{AdamaszekCL09\}). So putting aside trivial tours (each picking up $Q$ tokens at a node), we can assume we have a total of at most $nQ$ tokens and in particular, each node has at most this many tokens. Without loss of generality, we assume we have removed all trivial tours and so there is a total of at most $nQ$ demands.\
   \
   We can also assume there is at most one tour in $\\OPT$ covering at most $Q/2$ demand. If there are at least two tours $\\calT_1$ and $\\calT_2$ covering less than $Q/2$ demand, they can be merged into a single tour at no additional cost. Since the total demand is at most $nQ$, the total number of tours in the optimal solution is at most $nQ/(Q/2) = 2n$. \
   \
   %\\subsection\{Poly$(n)$ ounded edge weights\}\
 Now we scale edge weights to be polynomially bounded.\
 Observe that each tour in $\\OPT$ traverses each edge $e$ at most once in each direction, so at most twice. \
-Suppose we have guessed the largest edge weight that belongs to $\\OPT$ (by enumerating over all possible such guesses) and have removed any edge with weight larger. Let $W=\\max_\{e\\in E\} w(e)$ be\
+Suppose we have guessed the largest edge weight that belongs to $\\OPT$ (by enumerating over all possible such guesses) and has removed any edge with a weight larger. Let $W=\\max_\{e\\in E\} w(e)$ be\
 the largest (guessed) edge in $\\OPT$.\
-Suppose we build instance $\\calI'$ by rounding up the weight of each edge $e$ to be maximum of\
+Suppose we build instance $\\calI'$ by rounding up the weight of each edge $e$ to be a maximum of\
 $w(e)$ and $\\eps W/4n^3$. Since there are a total of at most $2n$ tours in $\\OPT$ and each edge\
 is traversed at most twice by each tour, and there are at most $n^2$ edges,\
-the cost of solution $\\OPT$ in $\\calI'$ is at most\
-$\\opt+4n\\cdot n^2\\cdot\\frac\{\\eps W\}\{4n^3\} \\leq (1+\\eps )\\opt$. Note that the ratio of maximum to minimum edge weight in $\\calI'$ is $4n^3/\\eps$, but the edge weights are not necessarily integer.\
+the cost of the solution $\\OPT$ in $\\calI'$ is at most\
+$\\opt+4n\\cdot n^2\\cdot\\frac\{\\eps W\}\{4n^3\} \\leq (1+\\eps )\\opt$. Note that the ratio of maximum to minimum edge weight in $\\calI'$ is $4n^3/\\eps$, but the edge weights are not necessarily an integer.\
 Now suppose we scale the edge weights so that the minimum edge weight is 1 and the maximum edge weight is $4n^3/\\eps$ and\
 then scale them all by $1/\\eps$, and then round each one up to the nearest integer.\
 Note that by this rounding to the nearest integer, \
 the cost of each edge is increased by a factor of at most $1+\\eps$, so the cost of an optimum solution in\
 the new instance is at most $(1+\\eps)(1+\\eps)=(1+O(\\eps))$ factor larger than before rounding while the edge weights are all polynomially bounded integers.\
-So from now on we assume we have this property for the given instance at a small loss.\
+So from now on, we assume we have this property for the given instance at a small loss.\
 \
 \
 %For each edge $e$, let $f^+(e)$ denote \
@@ -323,7 +323,7 @@ So from now on we assume we have this property for the given instance at a small
 % We will use $d_G(u,v)$ to denote the shortest path cost from $u$ to $v$ in graph $G$. Let $d_\{\\max\} = \\ma\{u,v \\in V(G), u \\neq v\} d_G(u,v)$, $d_\{\\min\} = \\mi\{u,v \\in V(G), u \\neq v\} d_G(u,v)$ and we will denote the aspect ratio by $\\Delta = \\frac\{d_\{\\max\}\}\{d_\{\\min\}\}$. Since the edge costs are are integral and between$[1, \\frac\{n^4\}\{\\eps^2\}]$ , $\\Delta = \\frac\{n^4\}\{\\eps^2\}$ and $\\log \\Delta \\le 4  \\log\\br\{\\frac\{n\}\{\\eps\}\}$. \\\\ \\\\\
 \
 \
-We will use the following two simplified version of the Chernoff Bound \\cite\{Mitzenmacher\} in our analysis. \
+We will use the following two simplified versions of the Chernoff Bound \\cite\{Mitzenmacher\} in our analysis. \
 \\begin\{lemma\}[\\bf Chernoff bound]\
 Let $Y = \\sum_\{i = 1\}^n Y_i$ where $Y_i = 1$ with probability $p_i$ and 0 with probability $1- p_i$, and all $Y_i$'s are independent. With $\\mu = \\Ex\{Y\}$,  $\\Prob\{Y > 2\\mu\} \\le e^\{-\\mu/3\}$\
 and $\\Prob\{Y < \\frac\{\\mu\}\{2\}\} \\le e^\{-\\mu/8\}.$\
@@ -332,15 +332,15 @@ and $\\Prob\{Y < \\frac\{\\mu\}\{2\}\} \\le e^\{-\\mu/8\}.$\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5\
 \\section\{QPTAS for CVRP on Trees\}\
 In this section we prove Theorem \\ref\{thm:tree\}.\
-We will first prove a structure theorem which describes structural properties of a near-optimal solution. We will leverage these structural properties and use dynamic programming to compute a near-optimal solution. \
+We will first prove a structure theorem that describes the structural properties of a near-optimal solution. We will leverage these structural properties and use dynamic programming to compute a near-optimal solution. \
 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
 \\subsection\{Structure Theorem\}\
 \
 Our goal in this section is to show the existence of a near optimum solution (i.e. one with cost $(1 + O(\\eps))\\opt$) with\
-certain properties which makes it easy to find one using dynamic programming.\
+certain properties which make it easy to find one using dynamic programming.\
 More specifically we show we can modify the instance $\\calI$ to instance $\\calI'$ on the same tree $T$ where each node has $\\geq 1$\
-tokens (so possibly more than 1) and change $\\OPT$ to a solution $\\OPT'$ on $\\calI'$ where cost of $\\OPT'$ is at most\
+tokens (so possibly more than 1) and change $\\OPT$ to a solution $\\OPT'$ on $\\calI'$ where the cost of $\\OPT'$ is at most\
 $(1+O(\\eps))\\opt$. Clearly the tours of $\\OPT'$ form a capacity respecting solution of $\\calI$ as well (of no more cost).\
 %In this section, we will characterize properties of a near-optimal solution to our instance having cost $(1 + O(\\eps))\\opt$. \
 \
@@ -351,7 +351,7 @@ optimum solution in $T'$ is within $1+\\epsilon$ factor of the optimum solution 
 Given a tree $T$ as an instance of CVRP and for any fixed $\\epsilon>0$, one can build a tree $T'$ with height $\\delta\\log^2 n/\\epsilon$, for some fixed $\\delta>0$, such that $\\opt(T')\\leq \\opt(T)\\leq (1+\\epsilon)\\opt(T')$.\
 \\end\{theorem\}\
 \
-So for the rest of this section we assume our input tree has height $O(\\log^2 n/\\eps)$ at a loss of (yet another) $1+\\eps$ in \
+So for the rest of this section, we assume our input tree has height $O(\\log^2 n/\\eps)$ at a loss of (yet another) $1+\\eps$ in \
 approximation ratio.\
 \
 \\subsubsection\{Overview of the ideas\}\
@@ -419,7 +419,7 @@ partial tours that visit $T_v$ all have a size from one of polyogarithmic many p
 while increasing the number and the cost of the tours by a small factor. We do this by duplicating some of the tours\
 that visit $T_v$ while changing parts of them that go down in $T_v$ and adding some extra tokens at $v$:\
 each tour still picks up at most a total of $Q$ tokens and the size (i.e. the number of tokens picked)\
-for each partial tour in the subtree $T_v$ is one of $O(\\log^4 n/\\eps^2)$ many possible values, while the total cost\
+for each partial tour in the subtree, $T_v$ is one of $O(\\log^4 n/\\eps^2)$ many possible values, while the total cost\
 of the solution is at most $(1+O(\\eps))\\opt$.\
 \
 Suppose $T$ has height $h$ (where $h=\\delta\\log^2 n/\\epsilon$). \
@@ -451,7 +451,7 @@ This helps us store a compact "sketch" \
 for partial solutions\
 at each node $v$ with the property that the partial solution can be extended to a near optimum one.\
 \
-How to handle the case of orphant tokens (those picked by the tours in the the last groups $G^v_g$ before the swap)? \
+How to handle the case of orphant tokens (those picked by the tours in the last groups $G^v_g$ before the swap)? \
 We will show that if $n_v$ is sufficiently large (at least polylogarithmic) then if we sample a small fraction of the tours of the optimum at random and add two copies of them (as extra tours), they\
 can be used to cover the orphant tokens. So overall, we show how one can modify $\\OPT$ by adding some extra tours to it\
 at a cost of at most $\\eps\\cdot\\opt$ such that: each node $v$ has $\\geq 1$ tokens and \
@@ -465,7 +465,7 @@ We start from $\\ell=h$ and let $\\OPT'=\\OPT_\\ell=\\OPT$ and for decreasing va
 to modify $\\OPT_\{\\ell+1\}$ to\
 obtain $\\OPT_\{\\ell\}$. To obtain $\\OPT_\{\\ell\}$ from $\\OPT_\{\\ell+1\}$ we keep the partial tours at levels $\\geq \\ell$ the same as\
 $\\OPT_\{\\ell+1\}$ but we change the top parts of the tours and how the top parts can be matched to the partial tours at \
-level $\\ell$ so that together they form capacity respecting solutions (tours of capacity at most $Q$) at low cost.\
+level $\\ell$ so that together they form capacity respecting solutions (tours of capacity at most $Q$) at a low cost.\
 \
 First, we assume that $\\OPT$ has at least $d\\log n$ many tours for some sufficiently large $d$. Otherwise,\
 if there are at most $D=d\\log n$ many tours in $\\OPT$ we can do a simple DP to compute $\\OPT$:\
@@ -635,13 +635,13 @@ vertex bucket pair $(v',b_\{i'\})$ then its size is equal to $h^\{v',max\}_\{i',
 $O((\\log Q\\log n)/\\eps^2)$ possible values.\
 This implies that for the extra tours of $X_\{v,i\}$, after we reassign partial\
 tours of $G^v_\{i,g\}$ to them (to cover the orphant nodes), each will have a size exactly equal to $h^\{v,max\}_\{i,g\}$ at level $\\ell$\
-and at lower levels $V_\{>\\ell\}$ they already have one of the $O(\\log Q\\log^3 n/\\eps^3)$ many possible sizes. This establishes the 3rd property of the lemma.\
+and at lower levels, $V_\{>\\ell\}$ they already have one of the $O(\\log Q\\log^3 n/\\eps^3)$ many possible sizes. This establishes the 3rd property of the lemma.\
 \\end\{proof\} \
 \
 Therefore, using Lemma \\ref\{lem:extra2\}, all the tokens of $T_v$ remain covered by partial tours;\
 those partial tours in $G^v_\{i,j\}$ (for $1\\leq j<g$) are tied to the top parts of the tours from group $G^v_\{i,j+1\}$ and the\
 partial tours of $G^v_\{i,g\}$ will be tied to extra tours designated to level $\\ell$. We also add extra tokens at $v$ to be\
-picked up by the partial tours of $T_v$ so that each partial tour has a size exactly equal to the maximum size of a group.\
+picked up by the partial tours of $T_v$ so that each partial tour has size exactly equal to the maximum size of a group.\
 All in all, the extra cost paid to build $\\OPT_\\ell$ (from $\\OPT_\{\\ell+1\}$) is for the extra tours designated to level $\\ell$.\
 \
 \\begin\{theorem\}\\label\{lem:struct1\} \\textbf\{(Structure Theorem)\}\
@@ -670,7 +670,7 @@ Using Lemma \\ref\{lem:extra-cost\}, we know the cost of the extra tours is at m
 \
 \\subsection\{Dynamic Program\}\
 \
-In this section we complete the proof of Theorem \\ref\{thm:tree\}. We will describe how we can compute a solution of cost at most $(1 + 4\\eps)\\opt$ using dynamic programming and based on the existence of a near-optimum solution guaranteed using the structure theorem.\
+In this section, we complete the proof of Theorem \\ref\{thm:tree\}. We will describe how we can compute a solution of cost at most $(1 + 4\\eps)\\opt$ using dynamic programming and based on the existence of a near-optimum solution guaranteed using the structure theorem.\
 For each vertex/bucket pair, we do not know if the bucket is small or big, so we will consider subproblems corresponding to both possibilities. Informally, we will have a vector $\\nvec \\in [n]^\{\\tau\}$ where if $i < 1/\\eps$, $n_i$ keeps track of the exact number of tours of size $i$ and for $i \\ge 1/\\eps$, $\\nvec_i$ keeps track of the number of tours in bucket $b_i$, or tours covering between $[\\sigma_i, \\sigma_\{i+1\})$ tokens. Let $o_v$ denote the total number of tokens to be picked up across all nodes in the subtree $T_v$. Since each node has at least one token, $o_v \\ge |V(T_v)|$. We will keep track of three other pieces of information conditioned on whether $b_i$ is a small or big bucket. If $b_i$ is a small bucket, we will store all the tour sizes exactly. Since the number of tours in a small bucket is at most $\\gamma = \\alpha \\log^3n /\\eps^2$, we will use a vector $\\tvec^i \\in [n]^\\gamma$ to represent the tours of a small bucket where $\\tvec^i_j$ represents the size of $j$-th tour in bucket $b_i$. Suppose $b_i$ is a big bucket, there are $g = (2\\delta \\log n)/\\eps^2 $ many tour sizes in the bucket corresponding to $n^g$ possibilities. For each big bucket $b_i$ at node $v$, we need to keep track of the following information, \
 \\begin\{itemize\}\
     \\item $\\hvec^i_v \\in [n]^g$ is a vector where $\\hvec^i_\{v,j\} = h^\{v, \\max\}_\{i,j\}$, which is the size of the maximum tour in group $j$ of bucket $i$ at node $v$. \
@@ -679,7 +679,7 @@ For each vertex/bucket pair, we do not know if the bucket is small or big, so we
 Let $\\yvec_v$ denote a configuration of tours across all buckets of $v$. \
 $$\\yvec_v = [o_v, \\nvec_v, (\\tvec_v^1, \\hvec_v^1, \\lvec_v^1), (\\tvec_v^2, \\hvec_v^2, \\lvec_v^2), \\ldots, (\\tvec_v^\\tau, \\hvec_v^\\tau, \\lvec_v^\\tau)].$$\
 Note that a bucket $b_i$ is either small or big and cannot be both, hence given $(\\tvec^i_v, \\hvec^i_v, \\lvec^i_v)$, it cannot be the case that $\\tvec^i_v \\neq \\vec\{0\}, \\hvec^i_v \\neq \\vec\{0\}$ and $\\lvec^i_v \\neq \\vec\{0\}$. \
-The subproblem $\\abold[v, \\yvec]$ is supposed to be the minimum cost collection of partial tours going down $T_v$ (to cover the tokens in $T_v$) and the cost of using the parent edge of $v$ having tour profile corresponding to $\\yvec$. Our dynamic program heavily relies on the properties of the near-optimal solution in the structure theorem.  Let $v$ be a node. We will compute $A[\\cdot, \\cdot]$ in a bottom-up manner, computing $\\abold[v, \\yvec_v]$ after we have computed the entries for the children of $v$. \
+The subproblem $\\abold[v, \\yvec]$ is supposed to be the minimum cost collection of partial tours going down $T_v$ (to cover the tokens in $T_v$) and the cost of using the parent edge of $v$ having a tour profile corresponding to $\\yvec$. Our dynamic program heavily relies on the properties of the near-optimal solution in the structure theorem.  Let $v$ be a node. We will compute $A[\\cdot, \\cdot]$ in a bottom-up manner, computing $\\abold[v, \\yvec_v]$ after we have computed the entries for the children of $v$. \
 \
 The final answer is obtained by looking at the various entries of $\\abold[r, \\cdot ]$ and taking the smallest one. First, we argue why this will correspond to a solution of cost no more than $\\opt'$. We will compute our solution in a bottom-up manner. \
 \
@@ -777,7 +777,7 @@ There exists a decomposition of the edge set of $T$ into edge-disjoint paths whi
 \\end\{enumerate\}\
 \\end\{lemma\}\
 \\begin\{proof\}\
-Given a tree $T$, a D-path of $T$ is a root-to-leaf path $P= v_1v_2\\ldots v_k$ such that $v_\{i+1\}$ is the child of $v_i$ with the largest number of nodes in the tree rooted at $T_\{v_\{i+1\}\}$. If there are multiple children with the same number of descendants, break ties arbitrarily. Let $P$ be a D-path. All the nodes in D-path $P$ receive label $1$. Let $T_1, \\ldots, T_c$ be the set of trees obtained from $T - P$. Let $P_i$ be the D-path for $T_i$. We will label all nodes in $P_i$ to be 2. We will repeat this process recursively by finding D-paths for trees resulting from $T_i - P_i$ and labelling every node in the D-path with value corresponding to the depth of recursion. Each step involves finding a D-path, labelling the nodes of the path, deleting the path and recursively repeating the process for the resulting trees (with the value of the label increased by 1). Nodes of D-paths of trees at depth $\\ell$ in the recursion receive labels $\\ell$.  We will terminate this process when all nodes have been labelled. Let $L_j$ denote the collection of all D-paths whose nodes received the label $j$ (see figure \\ref\{fig:decomp\}).\
+Given a tree $T$, a D-path of $T$ is a root-to-leaf path $P= v_1v_2\\ldots v_k$ such that $v_\{i+1\}$ is the child of $v_i$ with the largest number of nodes in the tree rooted at $T_\{v_\{i+1\}\}$. If there are multiple children with the same number of descendants, break ties arbitrarily. Let $P$ be a D-path. All the nodes in D-path $P$ receive label $1$. Let $T_1, \\ldots, T_c$ be the set of trees obtained from $T - P$. Let $P_i$ be the D-path for $T_i$. We will label all nodes in $P_i$ to be 2. We will repeat this process recursively by finding D-paths for trees resulting from $T_i - P_i$ and labelling every node in the D-path with the value corresponding to the depth of recursion. Each step involves finding a D-path, labelling the nodes of the path, deleting the path and recursively repeating the process for the resulting trees (with the value of the label increased by 1). Nodes of D-paths of trees at depth $\\ell$ in the recursion receive labels $\\ell$.  We will terminate this process when all nodes have been labelled. Let $L_j$ denote the collection of all D-paths whose nodes received the label $j$ (see figure \\ref\{fig:decomp\}).\
 \
 Note that after the first step, the trees $T_1, \\ldots, T_c$ satisfy the property that $|V(T_i)| \\le \\frac\{|V(T)|\}\{2\}$ i.e., each tree is at most half of the original tree. This is because we pick the child with the largest number of nodes in the subtree rooted at it. After each step, the size of the new components formed is at most half the size of the previous component, hence we would use at most $\\log n$ labels to label all nodes in the tree.\
 \\end\{proof\} \
@@ -1129,9 +1129,9 @@ a $\\delta>0$ to be specified, then we are done for $L_1$.\
 Each up-push acts on nodes in $P$ between two consecutive anchor points $a_i, a_\{i+1\}$ of the path $P$. During an up-push, we take all nodes in $P$ that lie between $a_i$ and $a_\{i+1\}$, which we will call $P'$, and make each node in $P'$ a child of $a_i$ with the edge connecting them to $a_i$ having weight 0. Suppose there is a child subtree $T_j$, which is a child of a node in $P'$ with edge connection cost $w_j$, the subtree $T_j$ will become a child of $a_i$ with the edge connecting them having cost $w_j$ (see Figure \\ref\{fig:upush\}). \
 Once we have completed up-pushes for all paths in $L_1$, we will find anchor points and perform up-pushes for each path in $L_2$. We will repeat this for paths in $L_i$ after our algorithm has finished up-pushes for paths in $L_\{i-1\}$.  \
 \
-We will now describe how we can find the anchor points. We will first describe what we would like to achieve from anchor points. We want the cost associated with a path in $L_i$ for some tour to differ by at most $O(\\eps)$ in our new tree compared to the the original tree. Suppose $P$ is a path\
+We will now describe how we can find the anchor points. We will first describe what we would like to achieve from anchor points. We want the cost associated with a path in $L_i$ for some tours to differ by at most $O(\\eps)$ in our new tree compared to the original tree. Suppose $P$ is a path\
 in $L_i$ and a tour $t$ is travelling $P$ down to node $u$ which is between\
-$a_i$ and $a_\{i+1\}$. Then the cost of the portion of the tour from root \
+$a_i$ and $a_\{i+1\}$. Then the cost of the portion of the tour from the root \
 of $P$ to $a_i$ is the same in the original tree and the new tree; however\
 the cost to travel from $a_i$ to $u$ is zero. We would like this cost in the original tree to be a small factor of the cost from the root of $P$ to $a_i$.\
 \
@@ -1145,7 +1145,7 @@ In the last section, we showed that every path in some level $L_i$ can be made t
 The height of the new tree is $O\\br\{\\frac\{\\log^2 n\}\{\\eps\}\}$. \
 \\end\{lemma\}\
 \\begin\{proof\}\
-In our algorithm, we first decomposed the tree into a set of edge-disjoint paths. The decomposition guarantees that one would first visit a lower level node in any root-toeaf path before visiting one with a higher level. Since there are at most $O(\\log n)$ different levels, any root-to-leaf path will be a disjoint union of paths from levels $L_1, \\ldots, L_s$ and there can be at most one path from each level. Since the height of a path in any level, $L_i$ is at most $O\\br\{\\frac\{\\log n\}\{\\eps\}\}$, and there are at most $O(\\log n)$ different levels, the maximum height in our new tree is at most $O\\br\{\\frac\{\\log^2 n\}\{\\eps\}\}$\
+In our algorithm, we first decomposed the tree into a set of edge-disjoint paths. The decomposition guarantees that one would first visit a lower level node in any root-to-leaf path before visiting one with a higher level. Since there are at most $O(\\log n)$ different levels, any root-to-leaf path will be a disjoint union of paths from levels $L_1, \\ldots, L_s$ and there can be at most one path from each level. Since the height of a path in any level, $L_i$ is at most $O\\br\{\\frac\{\\log n\}\{\\eps\}\}$, and there are at most $O(\\log n)$ different levels, the maximum height in our new tree is at most $O\\br\{\\frac\{\\log^2 n\}\{\\eps\}\}$\
 \\end\{proof\} \
 \
 Suppose we take a path $P$ at some level $L_c$. Let us fix a tour in an optimal solution and let the farthest point in $P$ the tour travels to be between anchor points [$a_i$,$a_\{i+1\}$). We use [$a_i$,$a_\{i+1\}$) denote that the tour crosses $a_i$ but will not cross $a_\{i+1\}$. Let $T$ be the original tree and let $T'$ be the new tree with reduced height. A tour in the optimal solution for $T'$ can visit nodes lying between $a_i$ and $a_\{i+i\}$ at no additional cost after visiting $a_i$. Suppose the cost of traversing the edges of $P$ in $T'$ is denoted by $d$, then the cost of traversing the edges of $P$ in $T$ is going to be at most  $(1 + O(\\eps))d$. This is because the cost of the edges between $a_i$ and the vertex before $a_\{i+1\}$ sum to at most $O(\\eps)w(r,a_i)$. Hence, the additional cost to cover them in $T$ is only going to be at most an $\\eps$ fraction more. \
@@ -1188,7 +1188,7 @@ we will assume $T$ has height $\\delta \\log n$ for some fixed $\\delta > 0$ and
 \
 Similar to how we showed the existence of a near-optimum solution for trees, we will modify the optimum solution $\\OPT$ in a bottom-up manner by modifying the tours covering the set of nodes below bag $s$, $C_s$. For each bag $s$, we change the structure of the partial tours going down $C_s$ (by adding a few extra tours from the depot) and also adding some extra tokens for nodes in bag $s$ so that the partial tours that visit $C_s$ all have a size from one of polyogarithmic many possible sizes (buckets) while increasing the number and the cost of the tours by a small factor. Note that although a node can be in different bags, its initial demand is in one bag and we might add extra tokens to copies of it in other bags. \
 \
-Similar to the case of tree, we assume the bags of the tree decomposition are partitioned into levels $V_1,\\ldots,V_h$ where $V_1$ is the bag containing the depot and $h$ is the height of $T$.  For every tour $\\calT$ and every level $\\ell$, we can define the notion of top and bottom part similar to the case of trees. For every $C_s$, a tour $\\calT$ enters $C_s$ through bag $s$ using a node $x$ and exists through node $z$ where both $x$ and $z$ have to be in $s$. Note that $x$ and $z$ could be equal if the tour enters and exists $s$ using the same node. For a bag $s$, let $n_\{s\}^\{x,z\}$ be the number of partial tours covering nodes in $C_s$ that enter through $x$ and exit through $z$ in $s$. For each bag and entry/exit pair, we will define the notion of a small/big bucket similar to the case of trees. For a big bucket, we will place the $n_\{s\}^\{x,z\}$ tours (ordered by increasing size) into groups $G_1^\{x,z,s\}, \\ldots, G_g^\{x,z,s\}$ of equal sizes. Let $h_\{i\}^\{s,x,z, \\max\} (h_\{i\}^\{s,x,z, \\min\}) $ refer to the maximum (minimum) size of the tours in $G^\{x,z,s\}_i$.\
+Similar to the case of a tree, we assume the bags of the tree decomposition are partitioned into levels $V_1,\\ldots,V_h$ where $V_1$ is the bag containing the depot and $h$ is the height of $T$.  For every tour $\\calT$ and every level $\\ell$, we can define the notion of top and bottom part similar to the case of trees. For every $C_s$, a tour $\\calT$ enters $C_s$ through bag $s$ using a node $x$ and exists through node $z$ where both $x$ and $z$ have to be in $s$. Note that $x$ and $z$ could be equal if the tour enters and exists $s$ using the same node. For a bag $s$, let $n_\{s\}^\{x,z\}$ be the number of partial tours covering nodes in $C_s$ that enter through $x$ and exit through $z$ in $s$. For each bag and entry/exit pair, we will define the notion of a small/big bucket similar to the case of trees. For a big bucket, we will place the $n_\{s\}^\{x,z\}$ tours (ordered by increasing size) into groups $G_1^\{x,z,s\}, \\ldots, G_g^\{x,z,s\}$ of equal sizes. Let $h_\{i\}^\{s,x,z, \\max\} (h_\{i\}^\{s,x,z, \\min\}) $ refer to the maximum (minimum) size of the tours in $G^\{x,z,s\}_i$.\
 \
 Similar to the case of trees, let $f$ be a mapping from a tour in $G_i^\{x,z,s\}$ to one in $G_\{i-1\}^\{x,z,s\}$. Now suppose we modify $\\OPT$ to $\\OPT'$ in the following way: for each tour $\\calT$ that has a partial tour in $t \\in G_i^\{x,z,s\}$, replace the bottom part of $\\calT$ entering through $x$ and exiting through $z$ in $s$ from $t$ to $f(t)$ (which is in $G_\{i-1\}^\{x,z,s\}$). The only problem is that those tokens in $C_s$ that were picked up by the partial tours in $G_g^\{x,z,s\}$ are not covered by any tours and like the case of trees, these are \\emph\{orphant\} tokens. For each tour $\\calT$ and its (new) partial tour $t \\in G_i^\{x,z,s\}$, if we add $h_i^\{\{x,z,s\}, \\max\} - |t|$ extra tokens at $s$ to be picked up by $t$, then each partial tour has size exactly same as the maximum size of its group without violating the capacities. \
 Similar to the case of trees, we will show that if $n_\{s\}^\{x,z\}$ is sufficiently large (at least polylogarithmic), then if we sample a small fraction of the tours of the optimum at random and add two copies of them (as extra tours), they can be used to cover the orphant tokens. \
@@ -1215,7 +1215,7 @@ tours $t\\in G^\{s,x,z\}_\{i,j\}$ to the tours in $G^\{s,x,z\}_\{i,j-1\}$ for al
 Consider set $\{\\bf T\}_\\ell$ of all the tours $\\calT$ in $\\OPT_\\ell$ that visit a bag in one of the lower levels $V_\{\\geq \\ell\}$. Consider an arbitrary such tour $\\calT$ that has a partial tour $t$ in a big entry/exit-bag-bucket configuration $(s,b_i,x,z)$, \
 suppose $t$ belongs to group $G_\{i,j\}^\{s,x,z\}$. We replace $t$ with $f(t)$ in $\\calT$.\
 %, and we assume the "estimate" of the tour size we keep for this new partial tour is $h^\{v,min\}_\{i,j-1\}$. \
-% Note that for $\\calT$, the partial tour at $C_s$ now has a size between \
+% Note that for $\\calT$, the partial tour at $C_s$ now has size between \
 % $h_\{i,j-1\}^\{s,x,z, \\min\}$ and $h_\{i,j-1\}^\{s,x,z, \\max\}$. \
 \
 Now, add some extra tokens at $x$ to be picked up by $\\calT$ so that\
@@ -1478,7 +1478,7 @@ Similar to the analysis of the runtime of the unit demand case, the time complex
 \
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
 \\section\{Extension to Splittable CVRP for Graphs of Bounded Doubling Metrics and Bounded Highway Dimension\}\
-In this section, we will show how we can use our algorithm for CVRP on bounded-treewidth graphs as a blackbox to obtain a QPTAS for graphs of bounded doubling metrics and graphs of bounded highway dimension.  We will use the following result about emdedding graphs of doubling dimension $D$ into a bounded-treewidth graph of treewidth $k \\le 2^\{O(D)\}\\ceil*\{\\br\{\\frac\{4D\\log \\Delta\}\{\\eps\}\}^D\}$ by Talwar \\cite\{Talwar-embedding\}. \
+In this section, we will show how we can use our algorithm for CVRP on bounded-treewidth graphs as a blackbox to obtain a QPTAS for graphs of bounded doubling metrics and graphs of bounded highway dimension.  We will use the following result about embedding graphs of doubling dimension $D$ into a bounded-treewidth graph of treewidth $k \\le 2^\{O(D)\}\\ceil*\{\\br\{\\frac\{4D\\log \\Delta\}\{\\eps\}\}^D\}$ by Talwar \\cite\{Talwar-embedding\}. \
 \\begin\{lemma\}\\label\{lem:doubling-embed\}\
 (Theorem 9 in \\cite\{Talwar-embedding\}) Let $(X,d)$ be a metric with doubling dimension $D$ and aspect ratio $\\Delta$. For any $\\eps > 0$, $(X,d)$ can be $(1 + \\eps)$ probabilistically approximated by a family of treewidth $k$-metrics for $k \\le 2^\{O(D)\}\\ceil*\{\\br\{\\frac\{4D\\log \\Delta\}\{\\eps\}\}^D\}$.\
 \\end\{lemma\}\
@@ -1551,7 +1551,7 @@ In this paper we presented QPTAS's for CVRP on trees, graphs of bounded treewidt
 \
 Although our result implies a QPTAS with a better run time\
 for CVRP on Euclidean plan $\\mathbb\{R\}^2$ ($n^\{O(\\log^\{6\}n/\\eps^\{5\})\}$ vs the time of\
-f $n^\{\\log^\{O(1/\\epsilon)\}n\}$ of \\cite\{Das-Mathieu\}), getting a PTAS remains an interesting open question.\
+$n^\{\\log^\{O(1/\\epsilon)\}n\}$ of \\cite\{Das-Mathieu\}), getting a PTAS remains an interesting open question.\
 As discussed in \\cite\{AdamaszekCL09\}, the difficult case appears to be when $Q$ is polynomial in $n$ (e.g. $Q=\\sqrt\{n\}$). Another interesting question is to consider CVRP on planar graphs and develop approximation schemes for them and more generally graphs of bounded genus or minor free graphs.\
 \
 \\bibliographystyle\{abbrv\}\
